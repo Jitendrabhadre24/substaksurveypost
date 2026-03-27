@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Free Career Test — Win an Amazon Gift Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #d4000d;
+    --red-dark: #a30009;
+    --red-glow: rgba(212,0,13,0.25);
+    --gold: #FFD700;
+    --gold-dim: rgba(255,215,0,0.12);
+    --gold-border: rgba(255,215,0,0.3);
+    --bg-deep: #080810;
+    --bg-card: #10101e;
+    --bg-form: #16162a;
+    --bg-input: rgba(255,255,255,0.05);
+    --border-faint: rgba(255,255,255,0.07);
+    --border-mid: rgba(255,255,255,0.12);
+    --text-white: #f0f0ff;
+    --text-muted: #8888aa;
+    --text-dim: #44445a;
+    --green: #22c55e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* Radial glow behind hero */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(212,0,13,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── TOP URGENCY BAR ─── */
+  .urgency-bar {
+    background: var(--red);
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #fff;
+    position: relative;
+    z-index: 10;
+    text-transform: uppercase;
+  }
+
+  .urgency-bar span {
+    background: rgba(0,0,0,0.25);
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-left: 8px;
+    font-weight: 700;
+  }
+
+  /* ─── WRAPPER ─── */
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 48px 24px 60px;
+  }
+
+  /* ─── HERO BADGE ─── */
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(212,0,13,0.15);
+    border: 1px solid rgba(212,0,13,0.4);
+    color: #ff5561;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 5px 14px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    animation: fadeDown 0.5s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ff5561;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  /* ─── HEADLINE ─── */
+  .headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 8vw, 58px);
+    line-height: 1.0;
+    letter-spacing: 0.02em;
+    color: var(--text-white);
+    margin-bottom: 10px;
+    animation: fadeDown 0.6s ease 0.1s both;
+  }
+
+  .headline .gold { color: var(--gold); }
+  .headline .red  { color: #ff3340; }
+
+  .subheadline {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 28px;
+    max-width: 460px;
+    animation: fadeDown 0.6s ease 0.2s both;
+  }
+
+  /* ─── SOCIAL PROOF ROW ─── */
+  .social-proof {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s ease 0.3s both;
+  }
+
+  .avatars {
+    display: flex;
+  }
+
+  .av {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--bg-deep);
+    margin-left: -8px;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .av:first-child { margin-left: 0; }
+  .av1 { background: #185FA5; }
+  .av2 { background: #0F6E56; }
+  .av3 { background: #854F0B; }
+  .av4 { background: #7F77DD; }
+  .av5 { background: #993556; }
+
+  .sp-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .sp-label strong { color: var(--text-white); font-weight: 600; }
+
+  /* ─── TRUST CHIPS ─── */
+  .trust-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 36px;
+    animation: fadeDown 0.6s ease 0.35s both;
+  }
+
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-faint);
+    padding: 6px 13px;
+    border-radius: 30px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .chip-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+
+  /* ─── GIFT HIGHLIGHT BOX ─── */
+  .gift-box {
+    background: var(--gold-dim);
+    border: 1px dashed var(--gold-border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    animation: fadeDown 0.6s ease 0.4s both;
+  }
+
+  .gift-icon-wrap {
+    font-size: 38px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .gift-text-top {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+  }
+
+  .gift-text-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .gift-text-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ─── HOW IT WORKS STEPS ─── */
+  .steps-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    animation: fadeDown 0.6s ease 0.45s both;
+  }
+
+  .steps {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s ease 0.5s both;
+  }
+
+  .step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: calc(50% + 18px);
+    right: calc(-50% + 18px);
+    height: 1px;
+    background: var(--border-faint);
+  }
+
+  .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 14px var(--red-glow);
+  }
+
+  .step-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-white);
+    margin-bottom: 2px;
+  }
+
+  .step-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ─── COUNTDOWN TIMER ─── */
+  .timer-section {
+    text-align: center;
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s ease 0.55s both;
+  }
+
+  .timer-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ff5561;
+    margin-bottom: 12px;
+  }
+
+  .timer-blocks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .t-block {
+    text-align: center;
+  }
+
+  .t-num {
+    background: var(--bg-form);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 10px 0;
+    width: 64px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+    display: block;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .t-unit {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 5px;
+  }
+
+  .t-sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--text-dim);
+    padding: 0 2px;
+    margin-bottom: 16px;
+  }
+
+  /* ─── FORM CARD ─── */
+  .form-card {
+    background: var(--bg-form);
+    border: 1px solid var(--border-mid);
+    border-radius: 18px;
+    padding: 32px 28px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.7s ease 0.6s both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .form-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+
+  .form-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    color: var(--text-white);
+    margin-bottom: 6px;
+  }
+
+  .form-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 22px;
+  }
+
+  .input-wrap {
+    position: relative;
+    margin-bottom: 14px;
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  input[type="email"],
+  input[type="text"] {
+    width: 100%;
+    padding: 15px 16px 15px 44px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-mid);
+    border-radius: 10px;
+    color: var(--text-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  input[type="email"]:focus,
+  input[type="text"]:focus {
+    border-color: var(--red);
+    background: rgba(212,0,13,0.06);
+  }
+
+  input::placeholder { color: var(--text-dim); }
+
+  .cta-button {
+    width: 100%;
+    padding: 17px 24px;
+    background: var(--red);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s, transform 0.1s;
+    margin-bottom: 12px;
+    box-shadow: 0 6px 28px var(--red-glow);
+  }
+
+  .cta-button:hover { background: var(--red-dark); }
+  .cta-button:active { transform: scale(0.99); }
+
+  .cta-button::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255,255,255,0.1);
+    transform: skewX(-18deg);
+    animation: shimmer 2.8s infinite;
+  }
+
+  @keyframes shimmer { to { left: 160%; } }
+
+  .form-microcopy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .lock-icon {
+    font-size: 12px;
+  }
+
+  /* ─── WHY SECTION ─── */
+  .why-section {
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease 0.7s both;
+  }
+
+  .why-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .why-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-faint);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .why-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(34,197,94,0.15);
+    border: 1px solid rgba(34,197,94,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .why-check svg {
+    width: 10px;
+    height: 10px;
+    stroke: var(--green);
+    fill: none;
+  }
+
+  .why-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.45;
+    font-weight: 500;
+  }
+
+  /* ─── WINNER TICKER ─── */
+  .winner-ticker {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-faint);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    animation: fadeUp 0.6s ease 0.75s both;
+  }
+
+  .ticker-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+    animation: pulse 1.5s infinite;
+  }
+
+  .ticker-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    animation: tickerScroll 14s linear infinite;
+  }
+
+  @keyframes tickerScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-40%); }
+  }
+
+  /* ─── DISCLAIMER ─── */
+  .disclaimer {
+    border-top: 1px solid var(--border-faint);
+    padding-top: 24px;
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    text-align: center;
+    animation: fadeUp 0.6s ease 0.8s both;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SUCCESS STATE ─── */
+  .success-overlay {
+    display: none;
+    background: var(--bg-form);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 18px;
+    padding: 40px 28px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .success-overlay.visible { display: block; }
+  .form-card.hidden { display: none; }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(34,197,94,0.15);
+    border: 2px solid rgba(34,197,94,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    font-size: 26px;
+  }
+
+  .success-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.04em;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+
+  .success-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 480px) {
+    .page { padding: 32px 16px 48px; }
+    .why-grid { grid-template-columns: 1fr; }
+    .t-num { width: 52px; font-size: 30px; }
+    .form-card { padding: 24px 18px; }
+    .gift-box { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- URGENCY TOP BAR -->
+<div class="urgency-bar">
+  ⚡ Limited Time Offer — Only <span id="spots">147</span> Spots Remaining Today!
+</div>
+
+<div class="page">
+
+  <!-- BADGE -->
+  <div class="hero-badge">Free Gift Card Giveaway</div>
+
+  <!-- HEADLINE -->
+  <h1 class="headline">
+    Would You Make a<br>
+    Great Career Online<br>
+    &amp; Become a<br>
+    <span class="gold">Millionaire?</span>
+  </h1>
+
+  <p class="subheadline">
+    Take this FREE test and find out how you can make money on the Internet — plus enter to win a gift card just for participating!
+  </p>
+
+  <!-- SOCIAL PROOF -->
+  <div class="social-proof">
+    <div class="avatars">
+      <div class="av av1">JD</div>
+      <div class="av av2">MR</div>
+      <div class="av av3">KL</div>
+      <div class="av av4">SP</div>
+      <div class="av av5">TW</div>
+    </div>
+    <div class="sp-label">
+      <strong>2,847 people</strong> entered this week<br>
+      <span style="font-size:11px;">⭐⭐⭐⭐⭐ Trusted giveaway</span>
+    </div>
+  </div>
+
+  <!-- TRUST CHIPS -->
+  <div class="trust-chips">
+    <div class="chip"><div class="chip-dot"></div> No Purchase Necessary</div>
+    <div class="chip"><div class="chip-dot"></div> 100% Free to Enter</div>
+    <div class="chip"><div class="chip-dot"></div> Must Be 18+</div>
+    <div class="chip"><div class="chip-dot"></div> US &amp; Canada Only</div>
+  </div>
+
+  <!-- GIFT BOX -->
+  <div class="gift-box">
+    <div class="gift-icon-wrap">🎁</div>
+    <div>
+      <div class="gift-text-top">Lucky Winner Receives</div>
+      <div class="gift-text-main">FREE Amazon Gift Card</div>
+      <div class="gift-text-sub">Enter your email for a chance to win. Zero cost, zero risk.</div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="steps-title">How It Works</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-name">Take Survey</div>
+      <div class="step-desc">Share your thoughts on a few quick topics</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-name">Enter Email</div>
+      <div class="step-desc">Provide your email for a chance to win</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-name">Win Big</div>
+      <div class="step-desc">One lucky winner gets a FREE gift card!</div>
+    </div>
+  </div>
+
+  <!-- COUNTDOWN TIMER -->
+  <div class="timer-section">
+    <div class="timer-label">⏰ Offer Expires In</div>
+    <div class="timer-blocks">
+      <div class="t-block">
+        <span class="t-num" id="t-h">05</span>
+        <div class="t-unit">Hours</div>
+      </div>
+      <div class="t-sep">:</div>
+      <div class="t-block">
+        <span class="t-num" id="t-m">47</span>
+        <div class="t-unit">Mins</div>
+      </div>
+      <div class="t-sep">:</div>
+      <div class="t-block">
+        <span class="t-num" id="t-s">33</span>
+        <div class="t-unit">Secs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WINNER TICKER -->
+  <div class="winner-ticker">
+    <div class="ticker-dot"></div>
+    <div class="ticker-text">
+      🏆 Sarah K. from Texas just won! &nbsp;•&nbsp; 🎉 Mike R. from Ontario entered 2 mins ago &nbsp;•&nbsp; 🏆 Jessica M. from California just won! &nbsp;•&nbsp; 🎉 Daniel W. from Toronto entered just now &nbsp;•&nbsp; 🏆 Amanda L. from Florida just won! &nbsp;•&nbsp; 🎉 Chris B. from Vancouver entered 1 min ago
+    </div>
+  </div>
+
+  <!-- SUCCESS STATE -->
+  <div class="success-overlay" id="success">
+    <div class="success-icon">✓</div>
+    <div class="success-title">You're In!</div>
+    <p class="success-sub">
+      Your entry has been submitted. We'll contact the winner via email.<br><br>
+      <strong style="color:#f0f0ff;">Good luck! 🎉</strong>
+    </p>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card" id="formCard">
+    <div class="form-title">Claim Your Free Entry</div>
+    <p class="form-sub">Enter your email below — takes less than 30 seconds!</p>
+
+    <div class="input-wrap">
+      <span class="input-icon">✉</span>
+      <input type="email" id="emailInput" placeholder="Enter your email address..." />
+    </div>
+
+    <button class="cta-button" id="ctaBtn" onclick="handleSubmit()">
+      CLAIM MY FREE ENTRY NOW →
+    </button>
+
+    <div class="form-microcopy">
+      <span class="lock-icon">🔒</span>
+      Your privacy is protected. No spam, ever.
+    </div>
+  </div>
+
+  <!-- WHY TAKE SURVEY -->
+  <div class="why-section">
+    <div class="why-title">Why Take Our Survey?</div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-check">
+          <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="why-text">Your opinion helps improve real products & services</div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">
+          <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="why-text">Chance to win a free delicious meal or gift card</div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">
+          <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="why-text">Zero cost, zero risk — 100% free to participate</div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">
+          <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="why-text">Takes under 60 seconds to complete and enter</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <strong style="color: #666680;">⚠️ Disclaimer:</strong> No purchase necessary. Odds of winning depend on the number of entries. Gift card value may vary. Must be 18 years or older to participate. This promotion is open to residents of the United States and Canada only. Void where prohibited. Thank you for participating.
+    <br><br>
+    <!-- ADD YOUR CPA LINK: Replace the href below with your actual CPA affiliate link -->
+    <!-- The form submit button above should redirect to your CPA landing page URL -->
+    <span style="color: #444458;">© 2025 · All rights reserved ·
+      <a href="#" style="color:#555570; text-decoration:underline;">Privacy Policy</a> ·
+      <a href="#" style="color:#555570; text-decoration:underline;">Terms of Use</a>
+    </span>
+  </div>
+
+</div><!-- end .page -->
+
+<script>
+  /* ── COUNTDOWN TIMER ── */
+  (function() {
+    var end = Date.now() + (5 * 3600 + 47 * 60 + 33) * 1000;
+    function tick() {
+      var diff = Math.max(0, Math.floor((end - Date.now()) / 1000));
+      var h = Math.floor(diff / 3600);
+      var m = Math.floor((diff % 3600) / 60);
+      var s = diff % 60;
+      document.getElementById('t-h').textContent = String(h).padStart(2,'0');
+      document.getElementById('t-m').textContent = String(m).padStart(2,'0');
+      document.getElementById('t-s').textContent = String(s).padStart(2,'0');
+      if (diff > 0) setTimeout(tick, 1000);
+    }
+    tick();
+  })();
+
+  /* ── SPOTS COUNTDOWN ── */
+  (function() {
+    var spots = 147;
+    setInterval(function() {
+      if (spots > 89 && Math.random() < 0.3) {
+        spots--;
+        document.getElementById('spots').textContent = spots;
+      }
+    }, 18000);
+  })();
+
+  /* ── FORM SUBMIT ── */
+  function handleSubmit() {
+    var email = document.getElementById('emailInput').value.trim();
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      document.getElementById('emailInput').style.borderColor = '#d4000d';
+      document.getElementById('emailInput').placeholder = 'Please enter a valid email address';
+      setTimeout(function() {
+        document.getElementById('emailInput').style.borderColor = '';
+        document.getElementById('emailInput').placeholder = 'Enter your email address...';
+      }, 2500);
+      return;
+    }
+
+    var btn = document.getElementById('ctaBtn');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+
+    setTimeout(function() {
+      document.getElementById('formCard').classList.add('hidden');
+      document.getElementById('success').classList.add('visible');
+
+      /*
+       * ════════════════════════════════════════════════════
+       *  IMPORTANT: REPLACE THE URL BELOW WITH YOUR CPA LINK
+       *  After showing success, redirect user to your CPA offer
+       * ════════════════════════════════════════════════════
+       */
+      // window.location.href = 'YOUR_CPA_AFFILIATE_LINK_HERE';
+    }, 1200);
+  }
+
+  /* Allow Enter key to submit */
+  document.getElementById('emailInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleSubmit();
+  });
+</script>
+
+</body>
+</html>
